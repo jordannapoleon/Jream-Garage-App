@@ -6,7 +6,7 @@ module.exports = {
     },
 
     production: {
-        connectionString: "process.env.POSTGRES_CONNECTION_STRING" + "?ss1=true",
+        connectionString: process.env.POSTGRES_CONNECTION_STRING + "?ss1=true",
         port: process.env.PORT
     }
 }
