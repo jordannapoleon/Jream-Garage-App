@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 const config = require('./config.js')[process.env.NODE_ENV||"dev"];
-const pool = new Pool ({connectionString: config.connectionString})
+const port = config.port;
+
+const pool = new Pool ({connectionString: config.connectionString});
 pool.connect();
 
 const app = express();
-const port = config.port;
 app.use(cors());
 app.use(express.json());
 
