@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 app.get(`/`, (req,res) =>{
-    res.send("hello world");
+    res.send("Jream-Garage-API");
 })
 
 app.get(`/api/cars`, (req,res) =>{
