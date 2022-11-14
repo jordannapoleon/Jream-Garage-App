@@ -14,7 +14,7 @@ body {
 
 .header{
     grid-area: header;
-    background-color: rgb(243, 80, 75);
+    background-color: rgb(30, 120, 204);
 }
 .sidebar-cont{
     grid-area: sidebar;
@@ -25,6 +25,8 @@ body {
 .main {
     grid-area: main;
     background-color: rgb(173, 173, 173);
+    display: flex;
+    flex-direction: column;
 }
 .footer {
     grid-area: footer;
@@ -35,12 +37,48 @@ body {
     justify-content: space-between;
 }
 
-.carEntry {
+.carCont {
     list-style: none;
     text-align: center;
     height: 50px;
     border: 2px solid black;
     border-radius: 5px;
-    margin-top: 5px
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
 
+}
+
+.carPictures {
+    margin-left: 5px;
+    height: 30px;
+    width: 30px;
+}
+
+.carEntry {
+    margin-right: 5px;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid black;
+}
+
+.displayPicture {
+    border: 4px solid lime;
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 400px;
+}
+
+.displayDetailsCont {
+    border: 4px solid rgb(0, 204, 255);
+    height: 150px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px
 }

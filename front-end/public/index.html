@@ -8,14 +8,24 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="app.js" defer></script>
-    <title>Jream Garage</title>
+    <title>Jream Cars</title>
 </head>
 <body>
-    <header class="header"></header>
+    <header class="header">
+        <h1 class="header-title">JREAM CARS APP</h1>
+    </header>
     <section class="sidebar-cont">
-        
     </section>
-    <div class="main"></div>
+    <div class="main">
+        <form id="carSearch">
+            <input type="search" id="query" placeholder="Search Cars">
+            <button id="queryButton" onclick="carQuery()">Search</button>
+        </form>
+        <div class="displayPicture"></div>
+        <div class="displayDetailsCont">
+            
+        </div>
+    </div>
     <footer class="footer"></footer>
 </body>
 </html>

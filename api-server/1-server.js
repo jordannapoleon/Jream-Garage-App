@@ -40,30 +40,36 @@ app.get(`/api/companies`, (req,res) =>{
             res.send(404, "Not Found")
         })
 })
-//makes
-app.get('/api/cars/:make', (req, res) => {
-    let makeRequest = req.params.make;
+//Makes
+app.get('/api/cars/:carsSearch', (req, res) => {
+    let makeRequest = req.params.carsSearch;
+    console.log("before slice", makeRequest)
     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);
+    console.log(makeQuery);
+    console.log(req.params);
 
-    pool.query(`SELECT * FROM vehicle WHERE make='${makeQuery}';`)
-    .then(result => {
-        res.send(result.rows)
-    })
-    .catch(e => {
-        console.error(e.stack);
-        res.send(404, "Not Found")
-    })
+        pool.query(`SELECT * FROM vehicle WHERE
+        make='${makeQuery}' OR model='${makeQuery}' OR type='${makeQuery}' OR color='${makeQuery}';`)
+        .then(result => {
+            res.status(200).send(result.rows)
+        })
+        .catch(e => {
+            console.error(e.stack);
+            res.status(404).send("Not Found")
+        })
+  
+
 })
+//Models
+// app.get('/api/cars/:model', (req, res) => {
+//     let makeRequest = req.params.model;
+//     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);
 
-app.get('/api/cars/:model', (req, res) => {
-    let makeRequest = req.params.make;
-    let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);
-
-    pool.query(`SELECT * FROM vehicle WHERE model='${makeQuery}';`)
-    .then(result => {
-        res.send(result.rows)
-    })
-})
+//     pool.query(`SELECT * FROM vehicle WHERE model='${makeQuery}';`)
+//     .then(result => {
+//         res.send(result.rows)
+//     })
+// })
 
 
 
