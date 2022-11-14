@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
+
 const config = require('./config.js')[process.env.NODE_ENV||"dev"];
 const port = config.port;
 
@@ -11,20 +12,35 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+//Home Page
 app.get(`/`, (req,res) =>{
     res.send("Jream-Garage-API");
 })
-
+//Cars
 app.get(`/api/cars`, (req,res) =>{
     pool.query(`SELECT * FROM Vehicle`)
         .then(result => {
             console.log('request sent')
             res.send(result.rows)
         })
-        .catch (e => console.error(e.stack))
+        .catch (e => {
+            console.error(e.stack)
+            res.send(404, "Not Found")
+        })
 })
-
+//Companies
+app.get(`/api/companies`, (req,res) =>{
+    pool.query(`SELECT * FROM Companies`)
+        .then(result => {
+            console.log('request sent')
+            res.send(result.rows)
+        })
+        .catch (e => {
+            console.error(e.stack)
+            res.send(404, "Not Found")
+        })
+})
+//makes
 app.get('/api/cars/:make', (req, res) => {
     let makeRequest = req.params.make;
     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);
@@ -33,7 +49,24 @@ app.get('/api/cars/:make', (req, res) => {
     .then(result => {
         res.send(result.rows)
     })
+    .catch(e => {
+        console.error(e.stack);
+        res.send(404, "Not Found")
+    })
 })
+
+app.get('/api/cars/:model', (req, res) => {
+    let makeRequest = req.params.make;
+    let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);
+
+    pool.query(`SELECT * FROM vehicle WHERE model='${makeQuery}';`)
+    .then(result => {
+        res.send(result.rows)
+    })
+})
+
+
+
 
 
 
