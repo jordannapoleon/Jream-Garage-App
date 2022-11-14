@@ -1,6 +1,6 @@
 //const ENV = "production";                                  //Changes Env Variable to production
 const ENV = "dev";                                           //Changes Env Variable to dev
-let ApiUrl = ENV == "dev" ? "http://localhost:5001" : "##";  //ENV == "dev" ? localhost(TRUE) : render URL(FALSE)
+let ApiUrl = ENV == "dev" ? "http://localhost:5001" : "https://jream-garage-api.onrender.com";  //ENV == "dev" ? localhost(TRUE) : render URL(FALSE)
 
 fetch(`${ApiUrl}/api/cars`)
     .then(res => res.json())
