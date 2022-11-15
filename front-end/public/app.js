@@ -8,8 +8,11 @@ startPage();
 
 function startPage() {
   fetch(`${ApiUrl}/api/cars`)
-    .then((res) => res.json())
+    .then((res) => {
+        console.log(res);
+        res.json()})
     .then((data) => {
+        console.log(data);
       data.forEach((car) => {
         let carSideContainer = document.createElement("div");
         carSideContainer.className = "carCont";

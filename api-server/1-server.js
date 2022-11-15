@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
+const { Client } = require('pg');
 
 const config = require('./config')[process.env.NODE_ENV||"dev"];
 const port = config.port;
 
-const pool = new Pool ({connectionString: config.connectionString});
-pool.connect();
+const client = new Client ({connectionString: config.connectionString});
+client.connect();
 
 const app = express();
 app.use(cors());
@@ -19,7 +19,7 @@ app.get(`/`, (req,res) =>{
 
 //Cars
 app.get(`/api/cars`, (req,res) =>{
-    pool.query(`SELECT * FROM Vehicle ORDER BY make ASC`)
+    pool.query(`SELECT * FROM vehicle ORDER BY make ASC`)
         .then(result => {
             console.log('request sent')
             res.status(200).send(result.rows)
