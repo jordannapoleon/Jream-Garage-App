@@ -18,7 +18,7 @@ app.get(`/`, (req,res) =>{
 })
 
 //Cars
-app.get(`/api/cars`, (req,res) =>{
+app.get('/api/cars', (req,res) =>{
     client.query(`SELECT * FROM vehicle ORDER BY make ASC`)
         .then(result => {
             console.log('request sent')
