@@ -14,19 +14,19 @@ app.use(express.json());
 
 //Home Page
 app.get(`/`, (req,res) =>{
-    res.send("Jream-Garage-API");
+    res.status(200).send("Jream-Garage-API");
 })
 
 //Cars
 app.get(`/api/cars`, (req,res) =>{
-    pool.query(`SELECT * FROM Vehicle`)
+    pool.query(`SELECT * FROM Vehicle ORDER BY make ASC`)
         .then(result => {
             console.log('request sent')
-            res.send(result.rows)
+            res.status(200).send(result.rows)
         })
         .catch (e => {
             console.error(e.stack)
-            res.send(404, "Not Found")
+            res.status(404).send("Not Found")
         })
 })
 //Companies
@@ -38,7 +38,7 @@ app.get(`/api/companies`, (req,res) =>{
         })
         .catch (e => {
             console.error(e.stack)
-            res.send(404, "Not Found")
+            res.status(404).send("Not Found")
         })
 })
 
@@ -124,12 +124,11 @@ app.patch('/api/cars/:id', (req, res)=>{
         }
         // CHECKS JSON BODY WITH FIELDS
         for(ele in req.body) {
-            console.log(req.body)
             let key = ele;
             let value = req.body[key];
                 if(checkedKey.includes(key) === false){
-                    res.writeHead(400, {'Content-Type': 'text/plain'});
-                    return res.end(`Bad Request ${key} is invalid`);
+                    res.status(400).end(`Bad Request ${key} is invalid`);
+                    return;
                 } else if(typeof req.body[key] === 'number'){
                     patchRequest += ` ${key}=${value},`;
                 } else {
@@ -141,13 +140,14 @@ app.patch('/api/cars/:id', (req, res)=>{
         
                 pool.query(`UPDATE vehicle ${finalQuery} WHERE id=${req.params.id}`)
                 .then(() => {
-                    res.writeHead(200, {'Content-Type': 'text/plain'})
-                    res.end(`You've successfully ${finalQuery}`);
+                    res.status(200).end((`You've successfully ${finalQuery}`));
                 })
-                .catch((e) => console.log(e.stack));
+                .catch((e) => {
+                    console.log(e.stack)});
 
     })
-    .catch((e) => console.error(e.stack));
+    .catch((e) => {
+        console.error(e.stack)});
 
 })
 //DONT TOUCH
