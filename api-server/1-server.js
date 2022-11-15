@@ -19,7 +19,7 @@ app.get(`/`, (req,res) =>{
 
 //Cars
 app.get(`/api/cars`, (req,res) =>{
-    pool.query(`SELECT * FROM vehicle ORDER BY make ASC`)
+    client.query(`SELECT * FROM vehicle ORDER BY make ASC`)
         .then(result => {
             console.log('request sent')
             res.status(200).send(result.rows)
@@ -31,7 +31,7 @@ app.get(`/api/cars`, (req,res) =>{
 })
 //Companies
 app.get(`/api/companies`, (req,res) =>{
-    pool.query(`SELECT * FROM Companies`)
+    client.query(`SELECT * FROM Companies`)
         .then(result => {
             console.log('request sent')
             res.send(result.rows)
@@ -49,7 +49,7 @@ app.get('/api/cars/:carsSearch', (req, res) => {
     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);                        //Capitilize First Letter
 
 
-        pool.query(`SELECT * FROM vehicle WHERE
+        client.query(`SELECT * FROM vehicle WHERE
         make='${makeQuery}' OR model='${makeQuery}' OR type='${makeQuery}' OR color='${makeQuery}';`)
         .then(result => {
 
@@ -73,7 +73,7 @@ app.get('/api/companies/:compSearch', (req, res) => {
     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);                        //Capitilize First Letter
 
 
-        pool.query(`SELECT * FROM companies WHERE
+        client.query(`SELECT * FROM companies WHERE
         name='${makeQuery}' OR founder='${makeQuery}';`)
         .then(result => {
             
@@ -95,7 +95,7 @@ app.get('/api/companies/:compSearch', (req, res) => {
 
 // ===== POST REQUESTS =====
 app.post('/api/cars/', (req, res) =>{
-    pool.query(`INSERT INTO vehicle (make, model, year, type, color) VALUES ('${req.body.make}','${req.body.model}',${req.body.year},${req.body.type},${req.body.color})`)
+    client.query(`INSERT INTO vehicle (make, model, year, type, color) VALUES ('${req.body.make}','${req.body.model}',${req.body.year},${req.body.type},${req.body.color})`)
     .then((result) => {
         console.log("Car Added")
         res.status(200).send(result.rows);
@@ -103,7 +103,7 @@ app.post('/api/cars/', (req, res) =>{
     .catch((e) => console.log(e.stack));
 })
 app.post('/api/cars/', (req,res) => {
-    pool.query(`INSERT INTO vehicle (make, model, year, type, color) VALUES ('${req.body.name}','${req.body.founder}',${req.body.date})`)
+    client.query(`INSERT INTO vehicle (make, model, year, type, color) VALUES ('${req.body.name}','${req.body.founder}',${req.body.date})`)
     .then((result) => {
         console.log("Company Added")
         res.status(200).send(result.rows);
@@ -115,7 +115,7 @@ app.post('/api/cars/', (req,res) => {
 app.patch('/api/cars/:id', (req, res)=>{
     var patchRequest = "SET";
 
-    pool.query(`SELECT * FROM vehicle WHERE id=${req.params.id}`)
+    client.query(`SELECT * FROM vehicle WHERE id=${req.params.id}`)
     .then((result) => {
 
         var checkedKey = []; //CHECKS TABLE FIELDS
@@ -138,7 +138,7 @@ app.patch('/api/cars/:id', (req, res)=>{
         }
             let finalQuery = patchRequest.slice(0,-1);
         
-                pool.query(`UPDATE vehicle ${finalQuery} WHERE id=${req.params.id}`)
+                client.query(`UPDATE vehicle ${finalQuery} WHERE id=${req.params.id}`)
                 .then(() => {
                     res.status(200).end((`You've successfully ${finalQuery}`));
                 })
@@ -154,7 +154,7 @@ app.patch('/api/cars/:id', (req, res)=>{
 app.delete('/api/cars/:id', (req, res) => {
 
     console.log(req.params);
-    pool.query(`DELETE FROM cars WHERE id=${id}`)
+    client.query(`DELETE FROM cars WHERE id=${id}`)
     .then(
         res.status(200).send("Deleted")
     )
