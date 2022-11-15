@@ -49,8 +49,13 @@ app.get('/api/cars/:carsSearch', (req, res) => {
     let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);                        //Capitilize First Letter
 
 
-        client.query(`SELECT * FROM vehicle WHERE
-        make='${makeQuery}' OR model='${makeQuery}' OR type='${makeQuery}' OR color='${makeQuery}';`)
+        client.query(`SELECT * FROM vehicle 
+        WHERE
+        make LIKE '%${makeQuery}%' 
+        OR model LIKE '%${makeQuery}%' 
+        OR type LIKE '%${makeQuery}%' 
+        OR color LIKE '%${makeQuery}%'
+        ;`)
         .then(result => {
 
             if (result.rows.length === 0){
