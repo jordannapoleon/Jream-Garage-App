@@ -1,5 +1,5 @@
-// const ENV = "production";                                  //Changes Env Variable to production
-const ENV = "dev"; //Changes Env Variable to dev
+const ENV = "production";                                  //Changes Env Variable to production
+// const ENV = "dev"; //Changes Env Variable to dev
 let ApiUrl =
 ENV == "dev"
 ? "http://localhost:5001"
