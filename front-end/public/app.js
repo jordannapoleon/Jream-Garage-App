@@ -77,13 +77,119 @@ function mainDetail(car){
      fetch(`${ApiUrl}/api/cars/${id}`)
      .then(res => res.json())
      .then(data => {
-        console.log(data)
+        createDetailSection(data[0].color, data[0].make, data[0].model, data[0].type, data[0].year);
      })
 }
+
+function createDetailSection (f1, f2, f3, f4, f5){
+    let info = document.querySelector('.displayDetailsCont');
+    clearSidebar(info);
+    
+    let color = document.createElement('div');
+        color.setAttribute("id", "color")
+        color.innerText = `Color: ${f1}`;
+    let make = document.createElement('div');
+        make.innerText = `Make: ${f2}`;
+    let model = document.createElement('div');
+        model.innerText = `Model: ${f3}`;
+    let type = document.createElement('div');
+        type.innerText = `Type: ${f4}`;
+    let year = document.createElement('div');
+        year.innerText = `Year: ${f5}`;
+    let carName = document.createElement('div');
+        carName.innerText = `${f2} ${f3}`;
+    
+
+    info.append(color, make, model, type, year, carName);
+}
+
+
 // ===== CLEAR SIDE BAR SIMILAR TO .CLEAR() =====
 function clearSidebar(parentNode){
 
     while (parentNode.firstChild) {
         parentNode.removeChild(parentNode.firstChild)
     }
+}
+// ===== USER UI BUTTON =====
+function homeButton(){
+    let sideBar = document.querySelector(".sidebar-cont");
+    clearSidebar(sideBar);
+    startPage();
+}
+
+function createButton(){
+    let sideBar = document.querySelector(".sidebar-cont");
+    clearSidebar(sideBar);
+    var compArr = [];
+    var fieldArr = [];
+
+
+    //GET Companies
+    fetch(`${ApiUrl}/api/cars/`)
+    .then(res => res.json())
+    .then(data => {
+        data.forEach((index) =>{
+            let x = 0;
+            if(compArr[x] !== index.make && compArr.indexOf(index.make) === -1){
+                compArr.push(index.make)
+                x++;
+            }
+        })
+    })
+
+    //Get Fields
+    fetch(`${ApiUrl}/api/cars/`)
+    .then(res => res.json())
+    .then(data => {     
+        for (let key in data[0]){
+            if(key !== "id"){
+                fieldArr.push(key);
+            }
+        }
+    })
+    .then(
+        fieldArr.forEach((x) => {
+            console.log(x);
+            if( x === 'make'){
+                console.log("start make")
+                let make = document.createElement("label");
+                make.innerText = "Choose Make"
+    
+                let select = document.createElement("select");
+    
+                compArr.forEach((i) => {
+                    let company = document.createElement("option");
+                        company.innerText = `${i}`;
+                    select.append(company);
+                    })
+    
+                select.setAttribute("id", "cars");
+                make.setAttribute("for", "cars")
+    
+                sideBar.append(make);
+                make.append(select)
+    
+            } else if (x === 'model'){
+                
+    
+            } else if (x === 'year'){
+                
+    
+            } else if (x === 'type'){
+              
+    
+            } else if (x === 'color'){
+                
+            }
+        })
+
+    )
+
+}
+
+function deleteButton(){
+    let sideBar = document.querySelector(".sidebar-cont");
+    clearSidebar(sideBar);
+    console.log('working');
 }
