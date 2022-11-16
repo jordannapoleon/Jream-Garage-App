@@ -5,6 +5,8 @@ ENV == "dev"
 ? "http://localhost:5001"
 : "https://jream-garage-api.onrender.com"; //ENV == "dev" ? localhost(TRUE) : render URL(FALSE)
 startPage();
+
+
 // ===== HOME PAGE LOAD ENTRIES =====
 function startPage() {
   fetch(`${ApiUrl}/api/cars`)
@@ -30,12 +32,6 @@ function startPage() {
       });
     });
 }
-
-
-
-
-
-
 // ===== SEARCH BAR  => createEntries()=====
 function carQuery(){
     let inputField = document.getElementById('query').value;
@@ -80,7 +76,6 @@ function mainDetail(car){
         createDetailSection(data[0].color, data[0].make, data[0].model, data[0].type, data[0].year);
      })
 }
-
 function createDetailSection (f1, f2, f3, f4, f5){
     let info = document.querySelector('.displayDetailsCont');
     clearSidebar(info);
@@ -111,85 +106,21 @@ function clearSidebar(parentNode){
         parentNode.removeChild(parentNode.firstChild)
     }
 }
+
 // ===== USER UI BUTTON =====
 function homeButton(){
     let sideBar = document.querySelector(".sidebar-cont");
     clearSidebar(sideBar);
     startPage();
 }
-
 function createButton(){
     let sideBar = document.querySelector(".sidebar-cont");
     clearSidebar(sideBar);
-    var compArr = [];
-    var fieldArr = [];
-
-
-    //GET Companies
-    fetch(`${ApiUrl}/api/cars/`)
-    .then(res => res.json())
-    .then(data => {
-        data.forEach((index) =>{
-            let x = 0;
-            if(compArr[x] !== index.make && compArr.indexOf(index.make) === -1){
-                compArr.push(index.make)
-                x++;
-            }
-        })
-    })
-
-    //Get Fields
-    fetch(`${ApiUrl}/api/cars/`)
-    .then(res => res.json())
-    .then(data => {     
-        for (let key in data[0]){
-            if(key !== "id"){
-                fieldArr.push(key);
-            }
-        }
-    })
-    .then(
-        fieldArr.forEach((x) => {
-            console.log(x);
-            if( x === 'make'){
-                console.log("start make")
-                let make = document.createElement("label");
-                make.innerText = "Choose Make"
-    
-                let select = document.createElement("select");
-    
-                compArr.forEach((i) => {
-                    let company = document.createElement("option");
-                        company.innerText = `${i}`;
-                    select.append(company);
-                    })
-    
-                select.setAttribute("id", "cars");
-                make.setAttribute("for", "cars")
-    
-                sideBar.append(make);
-                make.append(select)
-    
-            } else if (x === 'model'){
-                
-    
-            } else if (x === 'year'){
-                
-    
-            } else if (x === 'type'){
-              
-    
-            } else if (x === 'color'){
-                
-            }
-        })
-
-    )
+    fetch(`${ApiUrl}/api/cars/id`, {method : `POST`})
 
 }
-
 function deleteButton(){
     let sideBar = document.querySelector(".sidebar-cont");
     clearSidebar(sideBar);
-    console.log('working');
+    fetch(`${ApiUrl}/api/cars/id`, {method : `DELETE`})
 }
