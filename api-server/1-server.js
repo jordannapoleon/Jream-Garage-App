@@ -44,11 +44,11 @@ app.get(`/api/companies`, (req,res) =>{
 
 // ===== GET REQUESTS =====
 app.get('/api/cars/:carsSearch', (req, res) => {
-    
-    let makeRequest = req.params.carsSearch;                                                           //User Input
-    let makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);                        //Capitilize First Letter
-
-
+    let makeRequest = req.params.carsSearch;
+    var makeQuery;
+    if (isNaN(makeRequest) === true){
+        console.log("word")
+        makeQuery = makeRequest.charAt(0).toUpperCase() + makeRequest.slice(1);                        //Capitilize First Letter
         client.query(`SELECT * FROM vehicle 
         WHERE
         make LIKE '%${makeQuery}%' 
@@ -69,6 +69,25 @@ app.get('/api/cars/:carsSearch', (req, res) => {
             console.error(e.stack);
             res.status(404).send("Not Found")
         })
+
+    } else if (isNaN(makeRequest) === false) {
+        makeQuery = parseInt(makeRequest);
+
+        client.query(`SELECT * FROM vehicle WHERE id=${makeQuery}`)
+        .then(result => {
+
+          if (result.rows.length === 0){
+
+              res.status(404).send("Not Found")
+          } else {
+              res.status(200).send(result.rows)
+          }
+      })
+      .catch(e => {
+          console.error(e.stack);
+          res.status(404).send("Not Found")
+      })
+    }
   
 
 })

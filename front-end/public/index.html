@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheet.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <script src="app.js" defer></script>
     <title>Jream Cars</title>
-</head>
-<body>
+  </head>
+  <body>
     <header class="header">
-        <h1 class="header-title">JREAM CARS APP</h1>
+      <h1 class="header-title">JREAM CARS APP</h1>
     </header>
-    <section class="sidebar-cont">
-    </section>
+    <div class="userpanel">
+      <button type="'button" class="user-ui" id="user-home">
+        <span class="material-symbols-outlined"> home </span>
+      </button>
+      <button type="'button" class="user-ui" id="user-create">
+        <span class="material-symbols-outlined"> add_box </span>
+      </button>
+      <button type="'button" class="user-ui" id="user-delete">
+        <span class="material-symbols-outlined"> delete </span>
+      </button>
+    </div>
+    <section class="sidebar-cont"></section>
     <div class="main">
-        <form id="carSearch">
-            <input type="search" id="query" placeholder="Search Cars">
-            <button type="button" id="queryButton" onclick="carQuery()">Search</button>
-        </form>
-        <div class="displayPicture"></div>
-        <div class="displayDetailsCont">
-            
-        </div>
+      <form id="carSearch">
+        <input type="search" id="query" placeholder="Search Cars" />
+        <button type="button" id="queryButton" onclick="carQuery()">
+          Search
+        </button>
+      </form>
+      <div class="displayPicture"></div>
+      <div class="displayDetailsCont"></div>
     </div>
     <footer class="footer"></footer>
-</body>
+  </body>
 </html>
